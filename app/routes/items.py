@@ -5,7 +5,7 @@ from app.database import database
 
 from app.database.models import Item
 
-SessionDep = Annotated[Session, Depends(database.get_session)]
+
 
 router = APIRouter(
     prefix="/items",
@@ -14,7 +14,7 @@ router = APIRouter(
 
 @router.get("/all", tags=["items"])
 async def read_all_items(
-    session: SessionDep,
+    session: database.SessionDep,
 ) -> list[Item]:
     items = session.exec(select(Item)).all()
     return items
